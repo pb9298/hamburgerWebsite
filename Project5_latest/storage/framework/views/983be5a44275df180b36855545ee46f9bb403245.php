@@ -1,0 +1,137 @@
+<?php $__env->startSection('content'); ?>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+
+<!--********************** Main Content *************************** -->
+
+    <!----------------------------------- Content 2: Las más vendidos --------------------------->
+
+    <!----------------------------------- Content 3: Las más vendidos --------------------------->
+
+    <div id="content3" class="main_content_header">
+        <img src="images/Burguer.png" style=" width: 30px; height: 30px;">
+        <h2>Bienvenido administrador</h2><p>Welcome  <?php echo e(Auth::user()->first_name); ?>
+
+        </br>
+        <h2>Cambios en el menú</h2>
+
+        <div class="nav">
+            <ul>
+                <li class="TODOS"><button onclick="openForm1()"  href="#">Añadir hamburguesa</a></li>
+                <li class="Pollo"><button href="#" onclick="openForm2()">Modificar hamburguesa</a></li>
+              
+            </ul>
+        </div>
+        <div id="main_content_1">
+            <div class="large-12 columns">
+				<div class="form-popup" id="form1">
+					<form method="post" action="admin" enctype="multipart/form-data">
+                    <?php echo e(csrf_field()); ?>
+
+						</br>
+                        <input name="id" class="burger_details" class="form-control <?php $__errorArgs = ['id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Burger Id" type="text" value="<?php echo e(old('id')); ?>"> 
+                   <?php $__errorArgs = ['id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                       <span style="color:	#FFFFFF;" class="error" role="alert">
+                           </br></br><strong><?php echo e($message); ?></strong>
+                       </span>
+                   <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+
+						<input type="text" class="burger_details" name="name" placeholder="Nombre de hamburguesa"><br><br>
+						<input type="text" class="burger_details" name="price" placeholder="Precio de la hamburguesa"><br><br>
+						<input type="text" class="burger_details" name="calories" placeholder="Calorías de hamburguesas"><br><br>
+						<label class="burger_details">Categoría de hamburguesas</label><br><br>
+						<select name="category" >
+							<option value="">Select...</option>
+							<option value="Mixed">Mezcladas</option>
+							<option value="Vegetarian">Vegetariana</option>
+							<option value="Vegan">Vegana</option>
+							<option value="Plant-based">A base de plantas</option>
+							<option value="Non-vegetarian">No vegetariana</option>
+						</select>
+                        
+						<label class="burger_details">Ingredientes hamburguesa</label><br><br>
+						<input type="checkbox" name="ingredients_list[]" value="Chicken"><label>Chicken</label>
+						<input type="checkbox" name="ingredients_list[]" value="Eggs"><label>Eggs</label>
+						<input type="checkbox" name="ingredients_list[]" value="Lettuce"><label>Lettuce</label>
+						<input type="checkbox" name="ingredients_list[]" value="Tomato"><label>Tomato</label>
+						<input type="checkbox" name="ingredients_list[]" value="Onion"><label>Onion</label><br><br>
+                        <input type="file" value="Select Image" id="image" name="image" />
+						<input type="submit" name="submit_add" Value="Submit"/>
+						<button type="button" class="btn cancel" onclick="closeForm1()">Close</button>
+					</form>
+				</div>
+				
+				
+				<div class="form-popup" id="form2">
+						<table width="100%" border="1" style="border-collapse:collapse;">
+						<thead>
+						<tr>
+						<th><strong>Sr. .No</strong></th>
+						<th><strong>Item Name</strong></th>
+						<th><strong>Calories</strong></th>
+						<th><strong>Price</strong></th>
+						<th><strong>Edit</strong></th>
+						<th><strong>Delete</strong></th>
+						</tr>
+						</thead>
+						<tbody>        
+                        <?php $__currentLoopData = $menu; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menus): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+						<tr><td align="center"> <?php echo e($menus->item_no); ?></td>
+						<td align="center"><?php echo e($menus->item_name); ?></td>
+						<td align="center"><?php echo e($menus->calories); ?></td>
+						<td align="center"><?php echo e($menus->price); ?></td>
+						<td align="center">
+						<a href="editMenu/<?php echo e($menus->item_no); ?>">Edit</a>
+						</td>
+						<td align="center">
+						<a href="deleteMenu/<?php echo e($menus->item_no); ?>=>">Delete</a>
+						</td>
+						</tr>
+                        
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+						</tbody>
+						</table>
+					<button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
+				</div>
+				
+            </div>
+        </div>
+    </div>
+
+<script>
+function openForm1() {
+  document.getElementById("form1").style.display = "block";
+  document.getElementById("form2").style.display = "none";
+}
+
+function closeForm1() {
+  document.getElementById("form1").style.display = "none";
+}
+
+function openForm2() {
+  document.getElementById("form2").style.display = "block";
+  document.getElementById("form1").style.display = "none";
+
+}
+
+function closeForm2() {
+  document.getElementById("form2").style.display = "none";
+}
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/MAMP/htdocs/Project5_latest/resources/views/admin.blade.php ENDPATH**/ ?>
