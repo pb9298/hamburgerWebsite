@@ -1,8 +1,5 @@
 # hamburgerWebsite
 
-==== UTA ID: 1001649826 & 1001704419==============
-Name: PRATIK BARHATE $ Aditi Patel
-Course: CSE 5335 - 004: Web Data Management
 ## Instructions to run the project:
 My project local host link: http://localhost:8000/
 Admin login detail
@@ -17,7 +14,3 @@ User name: user Password: User@123
 6. We have followed the MVC architecture as you can see in the screenshots below as well.
 7. The website is responsive and does not have static pages and buttons.
 8. The email validations in checked along with all other validations in the pages.
-
-  
-Some of the screenshots of emails which we received.
-  
